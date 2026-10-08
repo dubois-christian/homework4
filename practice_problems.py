@@ -1,66 +1,53 @@
+
 """
 Problem 1: Duplicate Tracker
-
-You are given a collection of product IDs. Some IDs may appear more than once.
-Write a function that returns True if any duplicates are found, and False otherwise.
-
-Example:
-Input: [10, 20, 30, 20, 40]
-Output: True
-
-Input: [1, 2, 3, 4, 5]
-Output: False
+Return True when a product ID shows up more than once.
 """
 
 def has_duplicates(product_ids):
-    # Your implementation here
-    pass
+    # I used a set because it only keeps one of each ID.
+    # Checking and adding in a set is usually O(1), so the whole thing is O(n).
+    seen = set()
+    for id in product_ids:
+        if id in seen:
+            return True
+        seen.add(id)
+    return False
 
 
 """
 Problem 2: Order Manager
-
-You need to maintain a list of tasks in the order they were added, and support removing tasks from the front.
-Implement a class that supports add_task(task) and remove_oldest_task().
-
-Example:
-task_queue = TaskQueue()
-task_queue.add_task("Email follow-up")
-task_queue.add_task("Code review")
-task_queue.remove_oldest_task() → "Email follow-up"
+Add tasks and remove the oldest one first.
 """
 
 class TaskQueue:
     def __init__(self):
-        # Your initialization here
-        pass
+        # A list works as a basic queue since tasks stay in the order I add them.
+        # append is O(1) usually, but removing the first task is O(n) because items shift.
+        self.tasks = []
 
     def add_task(self, task):
-        pass
+        self.tasks.append(task)
 
     def remove_oldest_task(self):
-        pass
+        if len(self.tasks) == 0:
+            return None
+        return self.tasks.pop(0)
 
 
 """
 Problem 3: Unique Value Counter
-
-You receive a stream of integer values. At any point, you should be able to return the number of unique values seen so far.
-
-Example:
-tracker = UniqueTracker()
-tracker.add(10)
-tracker.add(20)
-tracker.add(10)
-tracker.get_unique_count() → 2
+Keep track of how many different values were added.
 """
 
 class UniqueTracker:
     def __init__(self):
-        pass
+        # I picked a set so duplicate numbers don't get counted more than once.
+        # Adding is usually O(1) and len is O(1), so getting the count is fast.
+        self.numbers = set()
 
     def add(self, value):
-        pass
+        self.numbers.add(value)
 
     def get_unique_count(self):
-        pass
+        return len(self.numbers)
